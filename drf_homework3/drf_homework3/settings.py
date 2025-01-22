@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_seed",
     "rest_framework",
+    'rest_framework_simplejwt.token_blacklist',
+
     "post",
     "user",
 ]
@@ -76,9 +78,8 @@ WSGI_APPLICATION = "drf_homework3.wsgi.application"
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),  
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),   
-    'ROTATE_REFRESH_TOKENS': True,
+    'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
-    'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
 
@@ -136,6 +137,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
+
+#Media files
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

@@ -58,7 +58,7 @@ class CommentList(APIView):
         post = self.get_object(pk)
         serializer = CommentSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            serializer.save(post=post)
+            serializer.save(post=post,author=request.user)
             return Response(serializer.data)
         
 class CommentDetail(APIView):
@@ -80,7 +80,7 @@ class LikeList(APIView):
     def get(self,request,pk):
         post = get_object_or_404(Post,pk=pk)
         check = request.user in post.like_user.all()
-        return Response({"좋아하나요?":check})
+        return Response({"좋아하나요?": check})
 
     def post(self,request,pk):
         post = get_object_or_404(Post,pk=pk)
@@ -90,4 +90,5 @@ class LikeList(APIView):
         else:
             post.like_user.add(request.user)
             return Response({"좋아요를 추가"})
+        
         
